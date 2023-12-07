@@ -10,46 +10,46 @@
 class Stack {
 public:
     // Check if all parentheses are balanced
-    bool isValidPara(const std::string& expression) {
-    std::stack<char> s;
-
-    for (char c : expression) {
-        if (c == '(' || c == '{' || c == '[') {
-            s.push(c);
-        } else if (!s.empty() && isMatching(s.top(), c)) {
-            s.pop();
-        } else {
-            return false;
+    void validPara(const std::string& symbols) {
+        std::stack<char> s;
+        for (char c : symbols) {
+            if (c == '(' || c == '{' || c == '[') {
+                s.push(c);
+            }
+            else if (c == ')' || c == '}' || c == ']') {
+                if (s.empty() || !isMatching(s.top(), c)) {
+                    std::cout << "invalid" << std::endl;
+                    return;
+                }
+                s.pop();
+            }
+        }
+        if (s.empty()) {
+            std::cout << "The paranthesis are balanced, so it is valid" << std::endl;
+        }
+        else {
+            std::cout << "The paranthesis are missing, so it is invalid" << std::endl;
         }
     }
-
-    return s.empty();
-}
 
     // Find the index of the first unbalanced parenthesis
-    int indexError(const std::string& expression) {
-        std::stack<int> s;
-        for (int i = 0; i < expression.length(); ++i) {
-            if (expression[i] == '(') {
-                s.push(i);
-            }
-            else if (expression[i] == ')') {
-                if (!s.empty()) {
-                    s.pop();
-                }
-                else {
-                    return i;
-                }
-            }
-        }
-        return s.empty() ? -1 : s.top();
+    int indexError(const std::string& symbols) {
+    int lastOpen = -1;
+
+    for (int i = 0; i < symbols.length(); ++i) {
+        if (symbols[i] == '(') lastOpen = i;
+        else if (symbols[i] == ')' && lastOpen == -1) return i;
+        else if (symbols[i] == ')') lastOpen = -1;
     }
 
+    return lastOpen;
+}
+
     // Find how many parentheses are needed to make the string balanced
-    void minPara(const std::string& expression) {
+    void minPara(const std::string& symbols) {
         int openCount = 0;
         int closeCount = 0;
-        for (char c : expression) {
+        for (char c : symbols) {
             if (c == '(') {
                 openCount++;
             }
@@ -66,10 +66,10 @@ public:
     }
 
     // Calculate how many valid parentheses are present
-    void scorePara(const std::string& expression) {
+    void scorePara(const std::string& symbols) {
         int score = 0;
         std::stack<char> s;
-        for (char c : expression) {
+        for (char c : symbols) {
             if (c == '(') {
                 s.push(c);
             }
