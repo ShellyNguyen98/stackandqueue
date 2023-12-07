@@ -120,14 +120,20 @@ public:
 
     // Process the entire message by dequeuing and displaying the reversed chunks
     void processMsg() {
-        while (!queue.empty()) {
-            std::string chunk = queue.front();
-            queue.erase(queue.begin());
-            std::reverse(chunk.begin(), chunk.end());
-            std::cout << chunk << " ";
+    while (!queue.empty()) {
+        std::string chunk = queue.front();
+        queue.erase(queue.begin());
+
+        for (char c : chunk) {
+            std::cout << c;
         }
-        std::cout << std::endl;
+
+        std::cout << " ";
     }
+
+    std::cout << std::endl;
+}
+
 };
 
 int main() {
