@@ -32,7 +32,7 @@ public:
         }
     }
 
-    // Find the index of the first unbalanced parenthesis
+    // Find the first index where actual error occurred
     int indexError(const std::string& symbols) {
     int lastOpen = -1;
 
@@ -45,27 +45,26 @@ public:
     return lastOpen;
 }
 
-    // Find how many parentheses are needed to make the string balanced
+    // Determine paranthessis are needed to make a string of code as a valid parenthesis string
     void minPara(const std::string& symbols) {
-        int openCount = 0;
-        int closeCount = 0;
-        for (char c : symbols) {
-            if (c == '(') {
-                openCount++;
-            }
-            else if (c == ')') {
-                if (openCount > 0) {
-                    openCount--;
-                }
-                else {
-                    closeCount++;
-                }
-            }
+    int begin = 0;
+    int end = 0;
+
+    for (char c : symbols) {
+        if (c == '(') {
+           begin++;
+        } else if (c == ')' && begin > 0) {
+            begin--;
+        } else if (c == ')') {
+            end++;
         }
-        std::cout << openCount + closeCount << std::endl;
     }
 
-    // Calculate how many valid parentheses are present
+    std::cout << begin + end << std::endl;
+}
+
+
+    // Calculate how many valid parentheses are presen in the given string
     void scorePara(const std::string& symbols) {
         int score = 0;
         std::stack<char> s;
