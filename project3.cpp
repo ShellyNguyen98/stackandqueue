@@ -111,7 +111,7 @@ public:
     std::string flipChunk = chunk;
     
     for (int i = 0, j = chunk.length() - 1; i < j; ++i, --j) {
-        std::swap(flipChunkChunk[i], flipChunk[j]);
+        std::swap(flipChunk[i], flipChunk[j]);
     }
 
     queue.push_back(flipChunk);
