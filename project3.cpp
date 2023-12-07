@@ -106,12 +106,17 @@ private:
     std::vector<std::string> queue;
 
 public:
-    // Enqueue a chunk of 8 characters, reversing the characters
+    // divide message into chunks of 8 char and insert it into queue
     void enqueue(const std::string& chunk) {
-        std::string reversedChunk = chunk;
-        std::reverse(reversedChunk.begin(), reversedChunk.end());
-        queue.push_back(reversedChunk);
+    std::string flipChunk = chunk;
+    
+    for (int i = 0, j = chunk.length() - 1; i < j; ++i, --j) {
+        std::swap(flipChunkChunk[i], flipChunk[j]);
     }
+
+    queue.push_back(flipChunk);
+}
+
 
     // Process the entire message by dequeuing and displaying the reversed chunks
     void processMsg() {
