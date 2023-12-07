@@ -10,27 +10,21 @@
 class Stack {
 public:
     // Check if all parentheses are balanced
-    void validPara(const std::string& expression) {
-        std::stack<char> s;
-        for (char c : expression) {
-            if (c == '(' || c == '{' || c == '[') {
-                s.push(c);
-            }
-            else if (c == ')' || c == '}' || c == ']') {
-                if (s.empty() || !isMatching(s.top(), c)) {
-                    std::cout << "invalid" << std::endl;
-                    return;
-                }
-                s.pop();
-            }
-        }
-        if (s.empty()) {
-            std::cout << "valid" << std::endl;
-        }
-        else {
-            std::cout << "invalid" << std::endl;
+    bool isValidPara(const std::string& expression) {
+    std::stack<char> s;
+
+    for (char c : expression) {
+        if (c == '(' || c == '{' || c == '[') {
+            s.push(c);
+        } else if (!s.empty() && isMatching(s.top(), c)) {
+            s.pop();
+        } else {
+            return false;
         }
     }
+
+    return s.empty();
+}
 
     // Find the index of the first unbalanced parenthesis
     int indexError(const std::string& expression) {
@@ -133,8 +127,6 @@ int main() {
     s1.minPara("(([{}))");
     s1.scorePara("(([{}))");
     std::cout << s1.indexError("({}[]()[)") << std::endl;
-    // ... (more test cases for Stack)
-
     Queue q1;
     q1.enqueue("This is a secure message.");
     q1.processMsg();
@@ -144,7 +136,7 @@ int main() {
     q1.processMsg();
     q1.enqueue("The website is not loading properly on my browser.");
     q1.processMsg();
-    // ... (more test cases for Queue)
+  
 
     return 0;
 }
