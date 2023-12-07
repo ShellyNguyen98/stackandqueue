@@ -34,16 +34,21 @@ public:
 
     // Find the first index where actual error occurred
     int indexError(const std::string& symbols) {
-    int lastOpen = -1;
+    std::stack<int> s;
 
     for (int i = 0; i < symbols.length(); ++i) {
-        if (symbols[i] == '(') lastOpen = i;
-        else if (symbols[i] == ')' && lastOpen == -1) return i;
-        else if (symbols[i] == ')') lastOpen = -1;
+        if (symbols[i] == '(') {
+            s.push(i);
+        } else if (symbols[i] == ')' && !s.empty()) {
+            s.pop();
+        } else if (symbols[i] == ')') {
+            return i;
+        }
     }
 
-    return lastOpen;
+    return s.empty() ? -1 : s.top();
 }
+
 
     // Determine paranthessis are needed to make a string of code as a valid parenthesis string
     void minPara(const std::string& symbols) {
