@@ -66,27 +66,34 @@ public:
 
     // Calculate how many valid parentheses are presen in the given string
     void scorePara(const std::string& symbols) {
-        int score = 0;
-        std::stack<char> s;
-        for (char c : symbols) {
-            if (c == '(') {
-                s.push(c);
-            }
-            else if (c == ')' && !s.empty()) {
-                s.pop();
-                score++;
-            }
+    int score = 0;
+    std::stack<char> s;
+
+    for (char c : symbols) {
+        if (c == '(') {
+            s.push(c);
+        } else if (c == ')' && !s.empty()) {
+            s.pop();
+            score++;
         }
-        std::cout << score << std::endl;
     }
 
+    std::cout << score << std::endl;
+}
+
+
 private:
-    // Helper function to check if parentheses are matching
+    // Check to see if parenthesis are matching
     bool isMatching(char open, char close) {
-        return (open == '(' && close == ')') ||
-            (open == '{' && close == '}') ||
-            (open == '[' && close == ']');
+    if (open == '(' && close == ')') {
+        return true;
+    } else if (open == '{' && close == '}') {
+        return true;
+    } else if (open == '[' && close == ']') {
+        return true;
     }
+    return false;
+}
 };
 
 class Queue {
